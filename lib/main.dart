@@ -21,20 +21,33 @@ class stopwatchPage extends StatefulWidget {
   const stopwatchPage({super.key});
 
   @override
-  _stopwatchPageState createState() => _stopwatchPageState();
+  stopwatchPageState createState() => stopwatchPageState();
 }
 
-class _stopwatchPageState extends State<stopwatchPage> {
+class stopwatchPageState extends State<stopwatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Stopwatch')),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Start functionality will be added here
-          },
-          child: Text('Start'),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Start'),
+            ),
+            SizedBox(width: 20),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Stop'),
+            ),
+            SizedBox(width: 20),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Reset'),
+            ),
+          ],
         ),
       ),
     );
