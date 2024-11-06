@@ -77,17 +77,17 @@ class StopwatchPageState extends State<StopwatchPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: startTimer,
                   child: Text('Start'),
                 ),
                 SizedBox(width: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: stopTimer,
                   child: Text('Stop'),
                 ),
                 SizedBox(width: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: resetTimer,
                   child: Text('Reset'),
                 ),
               ],
