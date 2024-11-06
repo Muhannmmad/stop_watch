@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(StopwatchApp());
+  runApp(const StopwatchApp());
 }
 
 class StopwatchApp extends StatelessWidget {
@@ -13,7 +13,7 @@ class StopwatchApp extends StatelessWidget {
     return MaterialApp(
       title: 'Stopwatch',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: StopwatchPage(),
+      home: const StopwatchPage(),
     );
   }
 }
@@ -33,9 +33,9 @@ class StopwatchPageState extends State<StopwatchPage> {
   void startTimer() {
     if (!isRunning) {
       isRunning = true;
-      timer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+      timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
         setState(() {
-          calculatedTime += Duration(milliseconds: 10);
+          calculatedTime += const Duration(milliseconds: 10);
         });
       });
     }
@@ -63,32 +63,32 @@ class StopwatchPageState extends State<StopwatchPage> {
         '${(calculatedTime.inMilliseconds % 1000 ~/ 10).toString().padLeft(2, '0')}';
 
     return Scaffold(
-      appBar: AppBar(title: Text('Stopwatch')),
+      appBar: AppBar(title: const Text('Stopwatch')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               formattedTime,
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: startTimer,
-                  child: Text('Start'),
+                  child: const Text('Start'),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: stopTimer,
-                  child: Text('Stop'),
+                  child: const Text('Stop'),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: resetTimer,
-                  child: Text('Reset'),
+                  child: const Text('Reset'),
                 ),
               ],
             ),
