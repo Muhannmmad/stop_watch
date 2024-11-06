@@ -26,26 +26,25 @@ class StopwatchPage extends StatefulWidget {
 }
 
 class StopwatchPageState extends State<StopwatchPage> {
-  Timer? timer;
   Duration calculatedTime = Duration.zero;
   bool isRunning = false;
 
-  void startTimer() {
+  Future<void> startTimer() async {
     if (!isRunning) {
       isRunning = true;
-      timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+      while (isRunning) {
+        await Future.delayed(const Duration(milliseconds: 10));
         setState(() {
           calculatedTime += const Duration(milliseconds: 10);
         });
-      });
+      }
     }
   }
 
   void stopTimer() {
-    if (isRunning) {
-      timer?.cancel();
+    setState(() {
       isRunning = false;
-    }
+    });
   }
 
   void resetTimer() {
