@@ -31,7 +31,9 @@ class StopwatchPageState extends State<StopwatchPage> {
 
   Future<void> startTimer() async {
     if (!isRunning) {
-      isRunning = true;
+      setState(() {
+        isRunning = true;
+      });
       while (isRunning) {
         await Future.delayed(const Duration(milliseconds: 10));
         setState(() {
@@ -61,8 +63,14 @@ class StopwatchPageState extends State<StopwatchPage> {
         '${(calculatedTime.inSeconds % 60).toString().padLeft(2, '0')}:'
         '${(calculatedTime.inMilliseconds % 1000 ~/ 10).toString().padLeft(2, '0')}';
 
+    Color backgroundColor = isRunning ? Colors.green : Colors.red;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Stopwatch')),
+      appBar: AppBar(
+        title: const Text('Stopwatch'),
+        backgroundColor: backgroundColor,
+      ),
+      backgroundColor: backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
