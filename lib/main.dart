@@ -1,51 +1,96 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(stopwatch());
+  runApp(StopwatchApp());
 }
 
-class stopwatch extends StatelessWidget {
-  const stopwatch({super.key});
+class StopwatchApp extends StatelessWidget {
+  const StopwatchApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Stopwatch',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: stopwatchPage(),
+      home: StopwatchPage(),
     );
   }
 }
 
-class stopwatchPage extends StatefulWidget {
-  const stopwatchPage({super.key});
+class StopwatchPage extends StatefulWidget {
+  const StopwatchPage({super.key});
 
   @override
-  stopwatchPageState createState() => stopwatchPageState();
+  StopwatchPageState createState() => StopwatchPageState();
 }
 
-class stopwatchPageState extends State<stopwatchPage> {
+class StopwatchPageState extends State<StopwatchPage> {
+  Timer? timer;
+  Duration calculatedTime = Duration.zero;
+  bool isRunning = false;
+
+  void startTimer() {
+    if (!isRunning) {
+      isRunning = true;
+      timer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+        setState(() {
+          calculatedTime += Duration(milliseconds: 10);
+        });
+      });
+    }
+  }
+
+  void stopTimer() {
+    if (isRunning) {
+      timer?.cancel();
+      isRunning = false;
+    }
+  }
+
+  void resetTimer() {
+    stopTimer();
+    setState(() {
+      calculatedTime = Duration.zero;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    String formattedTime =
+        '${calculatedTime.inMinutes.toString().padLeft(2, '0')}:'
+        '${(calculatedTime.inSeconds % 60).toString().padLeft(2, '0')}:'
+        '${(calculatedTime.inMilliseconds % 1000 ~/ 10).toString().padLeft(2, '0')}';
+
     return Scaffold(
       appBar: AppBar(title: Text('Stopwatch')),
       body: Center(
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Start'),
+            Text(
+              formattedTime,
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
-            SizedBox(width: 20),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Stop'),
-            ),
-            SizedBox(width: 20),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Reset'),
+            SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Start'),
+                ),
+                SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Stop'),
+                ),
+                SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Reset'),
+                ),
+              ],
             ),
           ],
         ),
