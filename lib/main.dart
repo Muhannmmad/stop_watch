@@ -72,7 +72,7 @@ class StopwatchPageState extends State<StopwatchPage> {
       appBar: AppBar(
         title: const Text('Stopwatch'),
         titleTextStyle: const TextStyle(
-            fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         backgroundColor: backgroundColor,
       ),
       backgroundColor: backgroundColor,
@@ -83,7 +83,7 @@ class StopwatchPageState extends State<StopwatchPage> {
             Text(
               formatTime(calculatedTime),
               style: const TextStyle(
-                  fontSize: 60,
+                  fontSize: 50,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
