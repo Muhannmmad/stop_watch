@@ -35,9 +35,9 @@ class StopwatchPageState extends State<StopwatchPage> {
         isRunning = true;
       });
       while (isRunning) {
-        await Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 10));
         setState(() {
-          calculatedTime += const Duration(milliseconds: 100);
+          calculatedTime += const Duration(milliseconds: 10);
         });
       }
     }
@@ -56,24 +56,18 @@ class StopwatchPageState extends State<StopwatchPage> {
     });
   }
 
-  String formatTime(Duration calculatedTime) {
-    final minutes = calculatedTime.inMinutes.toString().padLeft(2, '0');
-    final seconds = (calculatedTime.inSeconds % 60).toString().padLeft(2, '0');
-    final milliseconds =
-        (calculatedTime.inMilliseconds % 1000 ~/ 1).toString().padLeft(3, '0');
-
-    return '$minutes:$seconds:$milliseconds';
-  }
-
   @override
   Widget build(BuildContext context) {
+    String formattedTime =
+        '${calculatedTime.inMinutes.toString().padLeft(2, '0')}:'
+        '${(calculatedTime.inSeconds % 60).toString().padLeft(2, '0')}:'
+        '${(calculatedTime.inMilliseconds % 1000 ~/ 10).toString().padLeft(2, '0')}';
+
     Color backgroundColor = isRunning ? Colors.green : Colors.red;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stopwatch'),
-        titleTextStyle: const TextStyle(
-            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         backgroundColor: backgroundColor,
       ),
       backgroundColor: backgroundColor,
@@ -82,11 +76,8 @@ class StopwatchPageState extends State<StopwatchPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              formatTime(calculatedTime),
-              style: const TextStyle(
-                  fontSize: 60,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+              formattedTime,
+              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30),
             Row(
@@ -96,12 +87,12 @@ class StopwatchPageState extends State<StopwatchPage> {
                   onPressed: startTimer,
                   child: const Text('Start'),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: stopTimer,
                   child: const Text('Stop'),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: resetTimer,
                   child: const Text('Reset'),
