@@ -35,7 +35,7 @@ class StopwatchPageState extends State<StopwatchPage> {
       _stopwatch.start();
       while (isRunning) {
         await Future.delayed(const Duration(milliseconds: 30));
-        setState(() {}); // Update display
+        setState(() {});
       }
     }
   }
@@ -48,7 +48,7 @@ class StopwatchPageState extends State<StopwatchPage> {
   void resetTimer() {
     stopTimer();
     _stopwatch.reset();
-    setState(() {}); // Update display to show reset time
+    setState(() {});
   }
 
   String formatTime() {
