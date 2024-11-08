@@ -26,41 +26,39 @@ class StopwatchPage extends StatefulWidget {
 }
 
 class StopwatchPageState extends State<StopwatchPage> {
-  Duration calculatedTime = Duration.zero;
+  final Stopwatch _stopwatch = Stopwatch();
   bool isRunning = false;
 
   Future<void> startTimer() async {
     if (!isRunning) {
-      setState(() {
-        isRunning = true;
-      });
+      isRunning = true;
+      _stopwatch.start();
       while (isRunning) {
-        await Future.delayed(const Duration(milliseconds: 100));
-        setState(() {
-          calculatedTime += const Duration(milliseconds: 100);
-        });
+        await Future.delayed(const Duration(milliseconds: 30));
+        setState(() {}); // Update display
       }
     }
   }
 
   void stopTimer() {
-    setState(() {
-      isRunning = false;
-    });
+    isRunning = false;
+    _stopwatch.stop();
   }
 
   void resetTimer() {
     stopTimer();
-    setState(() {
-      calculatedTime = Duration.zero;
-    });
+    _stopwatch.reset();
+    setState(() {}); // Update display to show reset time
   }
 
-  String formatTime(Duration calculatedTime) {
-    final minutes = calculatedTime.inMinutes.toString().padLeft(2, '0');
-    final seconds = (calculatedTime.inSeconds % 60).toString().padLeft(2, '0');
-    final milliseconds =
-        (calculatedTime.inMilliseconds % 1000 ~/ 1).toString().padLeft(3, '0');
+  String formatTime() {
+    final elapsed = _stopwatch.elapsed;
+    final minutes = elapsed.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = elapsed.inSeconds.remainder(60).toString().padLeft(2, '0');
+    final milliseconds = (elapsed.inMilliseconds.remainder(1000) ~/ 10)
+        .toString()
+        .padLeft(2, '0');
+
     return '$minutes:$seconds:$milliseconds';
   }
 
@@ -81,9 +79,9 @@ class StopwatchPageState extends State<StopwatchPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              formatTime(calculatedTime),
+              formatTime(),
               style: const TextStyle(
-                  fontSize: 50,
+                  fontSize: 60,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
